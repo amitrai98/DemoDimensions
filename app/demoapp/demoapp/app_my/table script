@@ -1,0 +1,68 @@
+CREATE DATABASE app_my;
+ 
+USE app_my;
+ 
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(250) DEFAULT NULL,
+  `middle_name` varchar(250) DEFAULT NULL,
+  `last_name` varchar(250) DEFAULT NULL,
+  `dob` varchar(250) DEFAULT NULL,
+  `height` varchar(250) DEFAULT NULL,
+  `weight` varchar(250) DEFAULT NULL,
+  `mobile_no` varchar(250) DEFAULT NULL,
+  `home_no` varchar(250) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `note` varchar(250) DEFAULT NULL,
+  `member_type` varchar(250) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+);
+
+ 
+CREATE TABLE IF NOT EXISTS `transaction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `TransactionId` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `TranactionAmount` text NOT NULL,
+  `TransactionDetail` text NOT NULL,
+  `TransactionTime` text NOT NULL,
+  `TrasactionType` text NOT NULL,
+  `TrasactionBy` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `TransactionId` (`TransactionId`)
+);
+
+ 
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_name` int(11) NOT NULL,
+  `product_price` int(11) NOT NULL,
+  `product_image_url` int(11) NOT NULL,
+  `product_info` int(11) NOT NULL,
+  `product_in_stock` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  UNIQUE KEY `product_id` (`product_id`)
+);
+ 
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `checkin_time` int(11) NOT NULL,
+  `checkout_time` int(11) NOT NULL,
+    PRIMARY KEY (`id`)
+);
+ 
+ALTER TABLE  `transaction` ADD FOREIGN KEY (  `user_id` ) REFERENCES  `app_my`.`users` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE ;
+ 
+ALTER TABLE  `attendance` ADD FOREIGN KEY (  `user_id` ) REFERENCES  `app_my`.`users` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE ;
